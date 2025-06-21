@@ -1,4 +1,4 @@
-package pro.danyloplaksyvyi.numberfactsapp.presentation.view
+package pro.danyloplaksyvyi.numberfactsapp.presentation.detail.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
