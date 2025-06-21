@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import pro.danyloplaksyvyi.numberfactsapp.presentation.navigation.NumberFactsNavigation
 import pro.danyloplaksyvyi.numberfactsapp.ui.theme.NumberFactsAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -12,6 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NumberFactsAppTheme {
+                NumberFactsNavigation()
             }
         }
     }
