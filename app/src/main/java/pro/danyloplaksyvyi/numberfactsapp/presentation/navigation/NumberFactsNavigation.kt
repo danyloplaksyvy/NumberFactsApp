@@ -17,7 +17,7 @@ fun NumberFactsNavigation(
 ) {
     NavHost(navController = navController, startDestination = Screen.Main.route, modifier = modifier) {
         composable(route = Screen.Main.route) {
-            MainScreen { num -> navController.navigate("${Screen.Details.route}/$num") }
+            MainScreen(onNavigateToDetail =  { num -> navController.navigate("${Screen.Details.route}/$num") })
         }
         composable(route = "${Screen.Details.route}/{num}") { backStackEntry ->
             val num = backStackEntry.arguments?.getString("num")?.toLongOrNull() ?: 0L
