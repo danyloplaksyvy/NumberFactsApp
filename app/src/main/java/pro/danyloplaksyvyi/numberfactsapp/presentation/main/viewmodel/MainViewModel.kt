@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import pro.danyloplaksyvyi.numberfactsapp.domain.model.NumberFact
+import pro.danyloplaksyvyi.numberfactsapp.domain.usecase.GetAllFactsUseCase
 import pro.danyloplaksyvyi.numberfactsapp.domain.usecase.GetNumberFactUseCase
 import pro.danyloplaksyvyi.numberfactsapp.domain.usecase.GetRandomFactUseCase
 import javax.inject.Inject
@@ -17,11 +18,15 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val getNumberFactUseCase: GetNumberFactUseCase,
     private val getRandomFactUseCase: GetRandomFactUseCase,
+    private val getAllFactsUseCase: GetAllFactsUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
+    init {
+        loadFacts()
+    }
 
     fun onNumberChanged(number: String) {
         _uiState.value = _uiState.value.copy(inputNumber = number)
@@ -78,6 +83,13 @@ class MainViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(error = null)
     }
 
+    private fun loadFacts() {
+        viewModelScope.launch {
+            getAllFactsUseCase().collect { facts ->
+                _uiState.value = _uiState.value.copy(facts = facts)
+            }
+        }
+    }
 }
 
 data class MainUiState(

@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import pro.danyloplaksyvyi.numberfactsapp.data.model.Screen
+import pro.danyloplaksyvyi.numberfactsapp.domain.model.Screen
 import pro.danyloplaksyvyi.numberfactsapp.presentation.detail.view.DetailsScreen
 import pro.danyloplaksyvyi.numberfactsapp.presentation.main.view.MainScreen
 
@@ -17,11 +17,16 @@ fun NumberFactsNavigation(
 ) {
     NavHost(navController = navController, startDestination = Screen.Main.route, modifier = modifier) {
         composable(route = Screen.Main.route) {
-            MainScreen(onNavigateToDetail =  { num -> navController.navigate("${Screen.Details.route}/$num") })
+            MainScreen(onNavigateToDetail =  { factId -> navController.navigate("${Screen.Details.route}/$factId") })
         }
-        composable(route = "${Screen.Details.route}/{num}") { backStackEntry ->
-            val num = backStackEntry.arguments?.getString("num")?.toLongOrNull() ?: 0L
-            DetailsScreen(num = num)
+        composable(route = "${Screen.Details.route}/{factId}") { backStackEntry ->
+            val factId = backStackEntry.arguments?.getString("factId")?.toLongOrNull() ?: 0L
+            DetailsScreen(
+                factId = factId,
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }
