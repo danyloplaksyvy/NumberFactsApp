@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
     alias(libs.plugins.compose.compiler)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -71,9 +72,11 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.scalars)
+    // Okhttp interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // Material Icons Extended
-    implementation("androidx.compose.material:material-icons-extended:1.0.0")
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
